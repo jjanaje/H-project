@@ -1,5 +1,21 @@
-# Netlify deployment download
+# 지리산힐링펜션 객실 예약
 
-Download jirisan-healing-website.zip using the GitHub file page Download raw file button. Extract the ZIP, then upload the folder containing index.html at https://app.netlify.com/drop.
+물소리방과 새소리방을 각각 선택해 예약 요청을 저장하는 반응형 웹페이지입니다. 현재 예약은 브라우저에만 저장되는 데모이며 실제 예약 확정·결제·외부 채널 연동은 수행하지 않습니다.
 
-Jirisan Healing Pension: water-sound room and bird-sound room. Reservations are browser-local demos. Prices, photos and occupancy are examples.
+## 실행
+
+Node.js 24에서 추가 패키지 설치 없이 `npm start`로 실행합니다. 기본 포트는 3000이고 `PORT`로 변경합니다. 실행 전 `prestart`가 `public/style.css`와 `public/app.js`를 HTML에 포함해 스타일 파일 경로에 의존하지 않게 합니다. 수정 뒤에는 `npm run build`로 HTML을 갱신하세요.
+
+객실 참고 사진은 `public/images`에 로컬 저장되어 있습니다. 실제 객실 사진·요금·정원이 제공되지 않아 두 객실 모두 임시 요금 150,000원/박, 최대 4인으로 표시합니다. 운영에 사용하기 전에 실제 정보와 서버 예약 기능을 연결해야 합니다.
+
+## 검증
+
+Chromium에서 두 객실의 개별 예약 저장·조회, 이미지 표시, 360–1440px 가로 넘침 여부, 외부 CSS 요청 차단 시 인라인 스타일 유지 여부를 확인합니다. 예약자 이름은 현재 브라우저 localStorage에만 저장됩니다.
+
+## 관리자 데모
+
+상단 ‘관리자’에서 처음에는 이 브라우저용 데모 관리자 아이디와 8자 이상 비밀번호를 만듭니다. 이후 같은 브라우저에서 로그인해 예약을 검색하고 예약 요청·확정(데모)·취소·이용 완료 상태와 메모를 저장할 수 있습니다. 취소 확인 및 확정 데모 예약 날짜 겹침 검사도 지원합니다.
+
+중요: 이 기능은 브라우저 로컬 UI 데모로 실제 관리자 인증·인가가 아닙니다. 계정 정보 및 예약은 localStorage에 있으므로 사용자가 직접 변경할 수 있습니다. 다른 브라우저·기기의 예약을 수집하지 않습니다. 비밀번호는 PBKDF2 해시로 저장하지만 서버 접근 통제를 제공하지 않습니다. 실제 고객 정보는 입력하지 말고 별도의 데모 비밀번호를 쓰세요. 로그인 세션은 메모리에만 유지되며 새로고침·로그아웃하면 종료됩니다. 실제 운영에는 서버 인증, 세션, DB 및 서버측 중복 예약 검증이 필요합니다.
+
+관리자 변경은 고객의 같은 브라우저 예약 조회에도 반영됩니다. 저장소를 지우면 로컬 계정과 예약이 삭제됩니다.
